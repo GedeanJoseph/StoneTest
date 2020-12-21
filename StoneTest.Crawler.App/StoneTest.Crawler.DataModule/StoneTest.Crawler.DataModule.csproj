@@ -1,13 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\StoneTest.Crawler.Commom\StoneTest.Crawler.Commom.csproj" />
-    <ProjectReference Include="..\StoneTest.Crawler.DataModule\StoneTest.Crawler.DataModule.csproj" />
     <ProjectReference Include="..\StoneTest.Crawler.WebDriver\StoneTest.Crawler.WebModule.csproj" />
   </ItemGroup>
 
