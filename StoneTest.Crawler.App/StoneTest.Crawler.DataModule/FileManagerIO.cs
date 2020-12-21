@@ -5,8 +5,10 @@ namespace StoneTest.Crawler.DataModule
 {
     public class FileManagerIO : IFileManager
     {
-        private string FileName { get; set; }
-        private string FilePath { get; set; }
+        public string FileName { get; set; }
+        public string FilePath { get; set; }
+        
+        public int CurrentFileSizeMB { get => GetCurrentFileSize();}
 
         public FileManagerIO(string filePath, string fileName)
         {
@@ -14,6 +16,9 @@ namespace StoneTest.Crawler.DataModule
             FileName = fileName;
         }
 
+        private int GetCurrentFileSize() {
+            return 0;
+        }    
         public string ReadContent()
         {
             throw new System.NotImplementedException();

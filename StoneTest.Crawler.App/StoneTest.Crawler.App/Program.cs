@@ -18,17 +18,17 @@ namespace StoneTest.Crawler.App
 
             var parameters = GetExecutionParams(args);
 
-            #region " Starting componente "            
+            #region " Initialyzing essentials components "            
             ITextContentProvider textProvider = new TextContentProvider() { };
             ITextContentAnalyzer textAnalyzer = new TextContentAnalyze() { };
             IFileManager fileManager = new FileManagerIO(parameters.DestinyFilePath,parameters.DestinyFileName) { };
-
             #endregion
 
             var crawlerExecution = new CrawlerExecution(textProvider, textAnalyzer, fileManager, parameters.BufferLimit, parameters.FileSizeLimit);
             crawlerExecution.StartExecution();
 
 
+            Console.ReadKey();
         }
 
         private static ExecutionParams GetExecutionParams(string[] args)

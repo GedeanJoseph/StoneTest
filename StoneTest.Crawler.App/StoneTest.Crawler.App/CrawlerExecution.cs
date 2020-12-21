@@ -11,8 +11,8 @@ namespace StoneTest.Crawler.App
         private ITextContentProvider _textProvider;
         private ITextContentAnalyzer _textAnalyser;
         private IFileManager _fileManager;
-        private int _bufferLimitMB;
-        private int _fileSizeLimit;
+        private int _bufferLimitMB { get; set; }
+        private int _fileSizeLimit { get; set; }
         #endregion'
 
         #region     "Constructors"
@@ -29,22 +29,29 @@ namespace StoneTest.Crawler.App
         #region " Public Methods"
         public void StartExecution()
         {
-            var newContent = _textProvider.GetTextContent();
-            _textAnalyser.GetTextDetails(newContent);
-            if (newContent.ContentInfo.ContentByteSize < _bufferLimitMB) {
-
-                var initialValue = newContent.Content;
-
-                /*Gedean Note:
-                 * Poderia utilizar aqui uma recursão de laço while, onde checaria a cada interação a necessidade de nova recursão. 
-                 * Mas, optei por uma laço mais simpes onde o target será definido por um cálculo matemático executado uma única vez.
-                 */
-                for (int i = 0; i < CheckInteractions(newContent); i++)
+            do
+            {
+                var newTextContent = _textProvider.GetTextContent();
+                _textAnalyser.GetTextDetails(newTextContent);
+                if (newTextContent.ContentInfo.ContentByteSize < _bufferLimitMB)
                 {
-                    newContent.Content.Append(initialValue);
+
+                    var initialValue = newTextContent.Content;
+
+                    /*Gedean Note:
+                     * Poderia utilizar aqui uma recursão de laço while, onde checaria a cada interação a necessidade de nova recursão. 
+                     * Mas, optei por uma laço mais simpes onde o target será definido por um cálculo matemático executado uma única vez.
+                     */
+                    for (int i = 0; i < CheckInteractions(newTextContent); i++)
+                    {
+                        newTextContent.Content.Append(initialValue);
+                    }
                 }
-            }
-            _fileManager.WriteContent(newContent);
+                _fileManager.WriteContent(newTextContent); 
+            } while (_fileManager.CurrentFileSizeMB < _fileSizeLimit);
+
+            StopExecution();
+            ReportGenerator();
         }
         #endregion
 
@@ -54,6 +61,12 @@ namespace StoneTest.Crawler.App
 
             return 1;
         }
+        private void StopExecution()
+        {
+
+        }
+        private void ReportGenerator() { }
+
         #endregion
     }
 }
