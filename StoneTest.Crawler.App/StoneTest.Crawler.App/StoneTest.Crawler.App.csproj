@@ -6,8 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StoneTest.Crawler.DataModule\StoneTest.Crawler.DataModule.csproj" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoneTest.Crawler.DataModule\StoneTest.Crawler.PersistenceModule.csproj" />
     <ProjectReference Include="..\StoneTest.Crawler.WebDriver\StoneTest.Crawler.WebModule.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

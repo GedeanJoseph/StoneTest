@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using StoneTest.Crawler.WebModule.Interfaces;
 using StoneTest.Crawler.Commom.Models;
 
-namespace StoneTest.Crawler.WebDriver
+namespace StoneTest.Crawler.WebModule
 {
     public class TextContentAnalyze : ITextContentAnalyzer
     {

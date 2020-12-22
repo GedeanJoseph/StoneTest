@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneTest.Crawler.App", "St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneTest.Crawler.WebModule", "StoneTest.Crawler.WebDriver\StoneTest.Crawler.WebModule.csproj", "{34CEF018-4990-4804-8B5A-1D119E406761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneTest.Crawler.DataModule", "StoneTest.Crawler.DataModule\StoneTest.Crawler.DataModule.csproj", "{1DE22B22-706C-42EF-A091-7482E1CABC52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneTest.Crawler.PersistenceModule", "StoneTest.Crawler.DataModule\StoneTest.Crawler.PersistenceModule.csproj", "{1DE22B22-706C-42EF-A091-7482E1CABC52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoneTest.Crawler.Commom", "StoneTest.Crawler.Commom\StoneTest.Crawler.Commom.csproj", "{0A2717A2-6C6F-42F5-B6A9-14C49D3397EA}"
 EndProject

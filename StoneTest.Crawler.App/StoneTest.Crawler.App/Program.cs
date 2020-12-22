@@ -1,9 +1,8 @@
 ﻿using StoneTest.Crawler.DataModule;
-using StoneTest.Crawler.DataModule.Interfaces;
-using StoneTest.Crawler.WebDriver;
+using StoneTest.Crawler.PersistenceModule.Interfaces;
+using StoneTest.Crawler.WebModule;
 using StoneTest.Crawler.WebModule.Interfaces;
 using System;
-using System.IO;
 
 namespace StoneTest.Crawler.App
 {
@@ -19,7 +18,7 @@ namespace StoneTest.Crawler.App
             var parameters = GetExecutionParams(args);
 
             #region " Initialyzing essentials components "            
-            ITextContentProvider textProvider = new TextContentProvider() { };
+            ITextContentProvider textProvider = new TextContentProvider(@"C:\Selenium\ChromeDriver2\") { };
             ITextContentAnalyzer textAnalyzer = new TextContentAnalyze() { };
             IFileManager fileManager = new FileManagerIO(parameters.DestinyFilePath,parameters.DestinyFileName) { };
             #endregion

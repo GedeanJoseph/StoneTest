@@ -1,7 +1,8 @@
 ﻿using StoneTest.Crawler.Commom.Models;
-using StoneTest.Crawler.DataModule.Interfaces;
+using StoneTest.Crawler.PersistenceModule.Interfaces;
 using StoneTest.Crawler.WebModule.Interfaces;
-
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace StoneTest.Crawler.App
 {
@@ -11,8 +12,9 @@ namespace StoneTest.Crawler.App
         private ITextContentProvider _textProvider;
         private ITextContentAnalyzer _textAnalyser;
         private IFileManager _fileManager;
-        private int _bufferLimitMB { get; set; }
-        private int _fileSizeLimit { get; set; }
+        private IConfiguration _configuration;
+        private int _bufferLimitMB;
+        private int _fileSizeLimit;
         #endregion'
 
         #region     "Constructors"
@@ -21,8 +23,13 @@ namespace StoneTest.Crawler.App
             _textProvider = textProvider;
             _textAnalyser = textAnalyzer;
             _fileManager = fileManager;
-            _bufferLimitMB = bufferLimitMB;
+            _bufferLimitMB = bufferLimitMB; 
             _fileSizeLimit = fileSizeLimit;
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile($"appsettings.json");
+            _configuration = builder.Build();
         }
         #endregion
 
@@ -39,8 +46,8 @@ namespace StoneTest.Crawler.App
                     var initialValue = newTextContent.Content;
 
                     /*Gedean Note:
-                     * Poderia utilizar aqui uma recursão de laço while, onde checaria a cada interação a necessidade de nova recursão. 
-                     * Mas, optei por uma laço mais simpes onde o target será definido por um cálculo matemático executado uma única vez.
+                     * Poderia utilizar aqui uma recursão de laço while, onde checaria a cada interação a necessidade de nova recursão.
+                     * Mas, optei por uma laço mais simpes onde o target será definido por um cálculo matemático executado uma única vez
                      */
                     for (int i = 0; i < CheckInteractions(newTextContent); i++)
                     {
@@ -51,6 +58,7 @@ namespace StoneTest.Crawler.App
             } while (_fileManager.CurrentFileSizeMB < _fileSizeLimit);
 
             StopExecution();
+
             ReportGenerator();
         }
         #endregion

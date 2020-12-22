@@ -1,4 +1,4 @@
-﻿using StoneTest.Crawler.DataModule.Interfaces;
+﻿using StoneTest.Crawler.PersistenceModule.Interfaces;
 using StoneTest.Crawler.Commom.Models;
 
 namespace StoneTest.Crawler.DataModule

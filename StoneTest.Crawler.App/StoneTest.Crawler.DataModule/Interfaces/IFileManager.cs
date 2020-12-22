@@ -1,6 +1,6 @@
 ﻿using StoneTest.Crawler.Commom.Models;
 
-namespace StoneTest.Crawler.DataModule.Interfaces
+namespace StoneTest.Crawler.PersistenceModule.Interfaces
 {
     public interface IFileManager
     {
