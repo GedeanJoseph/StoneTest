@@ -26,7 +26,7 @@ namespace StoneTest.Crawler.DataModule
 
         public void WriteContent(TextContent content)
         {
-            throw new System.NotImplementedException();
+            return;
         }
     }
 }

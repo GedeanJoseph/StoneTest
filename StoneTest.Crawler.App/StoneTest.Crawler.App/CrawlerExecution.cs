@@ -24,12 +24,7 @@ namespace StoneTest.Crawler.App
             _textAnalyser = textAnalyzer;
             _fileManager = fileManager;
             _bufferLimitMB = bufferLimitMB; 
-            _fileSizeLimit = fileSizeLimit;
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile($"appsettings.json");
-            _configuration = builder.Build();
+            _fileSizeLimit = fileSizeLimit;            
         }
         #endregion
 
@@ -39,7 +34,9 @@ namespace StoneTest.Crawler.App
             do
             {
                 var newTextContent = _textProvider.GetTextContent();
+                
                 _textAnalyser.GetTextDetails(newTextContent);
+
                 if (newTextContent.ContentInfo.ContentByteSize < _bufferLimitMB)
                 {
 
@@ -48,11 +45,11 @@ namespace StoneTest.Crawler.App
                     /*Gedean Note:
                      * Poderia utilizar aqui uma recursão de laço while, onde checaria a cada interação a necessidade de nova recursão.
                      * Mas, optei por uma laço mais simpes onde o target será definido por um cálculo matemático executado uma única vez
-                     */
-                    for (int i = 0; i < CheckInteractions(newTextContent); i++)
-                    {
-                        newTextContent.Content.Append(initialValue);
-                    }
+                    // */
+                    //for (int i = 0; i < CheckInteractions(newTextContent); i++)
+                    //{
+                    //    newTextContent.Content.Append(initialValue);
+                    //}
                 }
                 _fileManager.WriteContent(newTextContent); 
             } while (_fileManager.CurrentFileSizeMB < _fileSizeLimit);
@@ -67,7 +64,7 @@ namespace StoneTest.Crawler.App
         private int CheckInteractions(TextContent textContent) {
 
 
-            return 1;
+            return 100;
         }
         private void StopExecution()
         {

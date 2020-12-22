@@ -24,13 +24,9 @@ namespace StoneTest.Crawler.WebModule
 
             textContent.Content.Append(content);
 
+            Fechar();
             return textContent;
-        }
-        public void GenerateFallBackContent()
-        {
-            throw new System.NotImplementedException();
-        }
-
+        }        
         public TextContent GetTextFallBack()
         {
             var textMsg = new TextContent();

@@ -7,6 +7,7 @@ namespace StoneTest.Crawler.Commom.Models
         public TextContent()
         {
             Content = new StringBuilder();
+            ContentInfo = new ContentInfo();
         }
 
         public StringBuilder Content { get; set; }

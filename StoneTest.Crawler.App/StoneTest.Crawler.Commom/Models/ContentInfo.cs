@@ -2,6 +2,6 @@
 {
     public class ContentInfo
     {
-        public int ContentByteSize { get; set; }
+        public double ContentByteSize { get; set; }
     }
 }

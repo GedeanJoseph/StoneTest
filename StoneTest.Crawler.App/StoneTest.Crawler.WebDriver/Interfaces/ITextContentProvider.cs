@@ -9,6 +9,5 @@ namespace StoneTest.Crawler.WebModule.Interfaces
 
         public TextContent GetTextFallBack();
 
-        void GenerateFallBackContent();
     }
 }
