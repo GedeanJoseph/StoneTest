@@ -18,12 +18,19 @@ namespace StoneTest.Crawler.DataModule
         public string FileName { get; set; }
         public string FilePath { get; set; }
         
+        public string CurrentFileName { get { return GetCurrentFileName(); } }
+
         public double CurrentFileSizeMB { get { return GetCurrentFileSize(); } }
 
         public FileManagerIO(string filePath, string fileName)
         {
             FilePath = filePath;
             FileName = fileName;
+        }
+
+        private string GetCurrentFileName()
+        {
+            return Path.Combine(FilePath, FileName);
         }
 
         private double GetCurrentFileSize() {

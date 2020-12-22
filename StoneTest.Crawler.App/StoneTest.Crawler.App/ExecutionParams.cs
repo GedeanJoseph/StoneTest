@@ -9,7 +9,7 @@ namespace StoneTest.Crawler.App
         public ExecutionParams()
         {
             BufferLimit = 1;
-            FileSizeLimit = 100;
+            FileSizeLimit = 5;
         }
         public string DestinyFilePath { get; set; }
         public int BufferLimit { get; set; }

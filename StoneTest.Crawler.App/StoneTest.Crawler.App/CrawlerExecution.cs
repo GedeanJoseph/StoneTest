@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System;
+using System.Globalization;
 
 namespace StoneTest.Crawler.App
 {
@@ -29,7 +30,7 @@ namespace StoneTest.Crawler.App
             _textAnalyser = textAnalyzer;
             _fileManager = fileManager;            
             _bufferLimitMB = bufferLimitMB > 0 ? bufferLimitMB : 1;
-            _fileSizeLimitMB = fileSizeLimit > 0 ? fileSizeLimit : 100;
+            _fileSizeLimitMB = fileSizeLimit > 0 ? fileSizeLimit : 2;
             swTotal = new Stopwatch();
             swStep = new Stopwatch();
 
@@ -39,19 +40,19 @@ namespace StoneTest.Crawler.App
         #region " Public Methods"
         public void StartExecution()
         {
-            Console.WriteLine("_______________________________________________________________________________________");
-            Console.WriteLine("===========================Starting Execution!===========================");
-            Console.WriteLine("_______________________________________________________________________________________");
+            Console.WriteLine("=======================================================================================");
+            Console.WriteLine("===========================  Starting Execution!  ===========================");
+            Console.WriteLine("=======================================================================================\n\n");
             swTotal.Start();
             var bufferLimitB = (_bufferLimitMB * 1024 * 1024);
 
-            do
+            while (_fileManager.CurrentFileSizeMB < _fileSizeLimitMB && _executionCount < 300)
             {
                 _executionCount++;
                 swStep.Start();
-                Console.WriteLine("_______________________________________________________________________________________");
-                Console.WriteLine($"Starting Crawler step '{_executionCount}' ");
-                Console.WriteLine("_______________________________________________________________________________________");
+                
+                Console.WriteLine($"\n=================   Executing Crawler iteration '{_executionCount}'  =================\n");
+
                 var newTextContent = _textProvider.GetTextContent();
                 
                 _textAnalyser.GetTextDetails(newTextContent);
@@ -73,8 +74,7 @@ namespace StoneTest.Crawler.App
                 //write do buffer atual com o maior valor possível dentro do valor limite                
                 _fileManager.WriteContent(newTextContent);
                 swStep.Stop();
-
-            } while (_fileManager.CurrentFileSizeMB < _fileSizeLimitMB && _executionCount < 300);
+            } 
 
             StopExecution();
 
@@ -92,11 +92,16 @@ namespace StoneTest.Crawler.App
         private void StopExecution()
         {
             swTotal.Stop();
-            Console.WriteLine("_______________________________________________________________________________________");
-            Console.WriteLine($"================ Execution completed total time - {swTotal.Elapsed.ToString()} ans steps time is {swStep.Elapsed.ToString()} ===============");
-            Console.WriteLine("_______________________________________________________________________________________");
+            Console.WriteLine("\n\n"); 
+            Console.WriteLine("=======================================================================================");
+            Console.WriteLine($"================ Execution completed ===============");
+            Console.WriteLine("=======================================================================================");
         }
-        private void ReportGenerator() { }
+        private void ReportGenerator() {
+                Console.WriteLine("{0,35} {1,10} {2,19} {3,10} {4,16} {5,16}", "Name", "Size(MB)", "Path", "Iterations", "Total Time", "Average Time");
+                Console.WriteLine("_______________________________________________________________________________________________________________");                
+                Console.WriteLine("{0,35} {1,10} {2,19} {3,10} {4,16} {5,16}\n\n", _fileManager.FileName, _fileManager.CurrentFileSizeMB, _fileManager.FilePath,_executionCount, swTotal.Elapsed.ToString(@"hh\:mm\:ss"),swStep.Elapsed.ToString(@"hh\:mm\:ss"));                 
+        }
 
         #endregion
     }
