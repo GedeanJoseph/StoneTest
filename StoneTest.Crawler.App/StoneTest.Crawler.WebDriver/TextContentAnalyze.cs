@@ -26,17 +26,23 @@ namespace StoneTest.Crawler.WebModule
 
                 var byteCountResult = GetValueFromElementById("bytes");
 
-                var byteCountValue = Regex.Match(byteCountResult, "[0-9]*").Value;
+                var byteCountValue = Regex.Match(byteCountResult, "[0-9]*").Value;//GET ONLY NUMERIC VALUES FROM STRING ^.^
 
                 textContent.ContentInfo.ContentByteSize = Convert.ToDouble(byteCountValue);
                 Fechar();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Fechar();
-                throw ex;
+                return GetTextDetailsFallBack(textContent);                
             }
 
+            return textContent;
+        }
+
+        public TextContent GetTextDetailsFallBack(TextContent textContent)
+        {
+            textContent.ContentInfo = new ContentInfo() { ContentByteSize = System.Text.ASCIIEncoding.UTF8.GetByteCount(textContent.Content.ToString())};
             return textContent;
         }
     }
