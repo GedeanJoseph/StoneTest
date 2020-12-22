@@ -29,14 +29,12 @@ namespace StoneTest.Crawler.WebModule
                 var byteCountValue = Regex.Match(byteCountResult, "[0-9]*").Value;//GET ONLY NUMERIC VALUES FROM STRING ^.^
 
                 textContent.ContentInfo.ContentByteSize = Convert.ToDouble(byteCountValue);
-                Fechar();
             }
             catch (Exception)
-            {
-                Fechar();
+            {               
                 return GetTextDetailsFallBack(textContent);                
             }
-
+            Fechar();
             return textContent;
         }
 

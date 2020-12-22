@@ -13,4 +13,14 @@
     <ProjectReference Include="..\StoneTest.Crawler.Commom\StoneTest.Crawler.Commom.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Template\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Template\FallBackVerboseFile.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
