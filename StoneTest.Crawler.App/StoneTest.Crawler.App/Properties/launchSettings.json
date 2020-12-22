@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "StoneTest.Crawler.App": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\BitBucket\\Private\\Stone\\Files"
+    }
+  }
+}

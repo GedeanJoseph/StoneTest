@@ -15,7 +15,6 @@ namespace StoneTest.Crawler.App
             #region " Verbose section"
             Console.WriteLine("Stone Test - WebCrowler says: \"-Hello world\"!");
             Console.WriteLine("Let's Works Hard, and Play Hard!");
-            Console.WriteLine("____________________________________________________________");
             #endregion
 
             #region " Configuration settings "
@@ -33,7 +32,7 @@ namespace StoneTest.Crawler.App
             var chromeDriverPath = configuration.GetSection("Selenium:DriverChromeFilePath").Value.ToString();            
             ITextContentProvider textProvider = new TextContentProvider(chromeDriverPath) { };
             ITextContentAnalyzer textAnalyzer = new TextContentAnalyze(chromeDriverPath) { };
-            IFileManager fileManager = new FileManagerIO(parameters.DestinyFilePath,parameters.DestinyFileName) { };
+            IFileManager fileManager = new FileManagerIO(parameters.DestinyFilePath) { };
             #endregion
 
             
@@ -45,7 +44,12 @@ namespace StoneTest.Crawler.App
 
         private static ExecutionParams GetExecutionParams(string[] args)
         {
-            return new ExecutionParams();
+            var parameters = new ExecutionParams();
+
+            parameters.DestinyFilePath = args[0].ToString();
+
+
+            return parameters;
         }
     }
 }

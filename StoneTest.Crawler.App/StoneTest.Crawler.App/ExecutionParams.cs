@@ -8,15 +8,12 @@ namespace StoneTest.Crawler.App
     {
         public ExecutionParams()
         {
-            SetDestinyFileName();
+            BufferLimit = 1;
+            FileSizeLimit = 100;
         }
-        public string DestinyFileName { get; private set; }
         public string DestinyFilePath { get; set; }
         public int BufferLimit { get; set; }
         public int FileSizeLimit { get; set; }
-
-        private void SetDestinyFileName() { 
-            DestinyFileName = $"{DateTime.Now:yyyy-MMdd-HHmmss}-arquivo-gerado.txt";
-        }    
+        
     }
 }
