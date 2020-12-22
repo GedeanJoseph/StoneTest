@@ -26,7 +26,8 @@ namespace StoneTest.Crawler.DataModule
 
         public void WriteContent(TextContent content)
         {
-            return;
+            content.Content.Clear();
+            content.ContentInfo = new ContentInfo();            
         }
     }
 }

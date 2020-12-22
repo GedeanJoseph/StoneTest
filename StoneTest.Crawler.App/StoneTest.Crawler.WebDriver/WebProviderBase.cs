@@ -8,15 +8,12 @@ namespace StoneTest.Crawler.WebModule
 {
     public class WebProviderBase
     {
-        private IConfiguration _configuration;
         public IWebDriver _driver;
         private string _pathDriver;
 
         public WebProviderBase(string pathDriver)
         {
-            //_configuration = configuration;
             _pathDriver = pathDriver;
-            DriverBuilder();
         }
 
         private void DriverBuilder()
@@ -35,6 +32,8 @@ namespace StoneTest.Crawler.WebModule
 
         public void PageLoad(string url)
         {
+            DriverBuilder();
+
             _driver.LoadPage(
                 TimeSpan.FromSeconds(5),
                 url);
