@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -6,27 +7,45 @@ using OpenQA.Selenium.Support.UI;
 
 namespace StoneTest.Crawler.WebModule
 {
-    public class WebProviderBase
+    public class WebProviderBase:IDisposable
     {
         public IWebDriver _driver;
         private string _pathDriver;
+        private bool _headLessModeActivated;
 
-        public WebProviderBase(string pathDriver)
+        public WebProviderBase(bool headLessModeActivated)
         {
-            _pathDriver = pathDriver;
+            _pathDriver = Path.Combine(Directory.GetCurrentDirectory(), "Driver"); ;
+            _headLessModeActivated = headLessModeActivated;
         }
 
         private void DriverBuilder()
         {
-            try
+            if (_driver == null)
             {
-                ChromeOptions chromeOptions = new ChromeOptions() { };
-                //chromeOptions.AddArgument("--headless");
-                _driver = new ChromeDriver(_pathDriver,chromeOptions);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+
+                    ChromeOptions chromeOptions = new ChromeOptions() { };
+
+                    //this not throw browser to load de pages
+                    if (_headLessModeActivated)
+                        chromeOptions.AddArgument("--headless");
+
+                    //to execute in silent mode
+                    ChromeDriverService chromeService = ChromeDriverService.CreateDefaultService(_pathDriver);
+                    chromeService.SuppressInitialDiagnosticInformation = true;
+                    chromeOptions.AddArgument("--silent");
+                    chromeOptions.AddArgument("--log-level=3");
+                    chromeOptions.AddArgument("--disable-logging");
+
+                    _driver = new ChromeDriver(chromeService, chromeOptions);
+                    
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                } 
             }
         }
 
@@ -83,10 +102,15 @@ namespace StoneTest.Crawler.WebModule
 
         public void Fechar()
         {
-            _driver.Quit();
+            if(_driver!= null)
+                _driver.Quit();
+            
             _driver = null;
         }
 
-
+        public void Dispose()
+        {
+            Fechar();
+        }
     }
 }

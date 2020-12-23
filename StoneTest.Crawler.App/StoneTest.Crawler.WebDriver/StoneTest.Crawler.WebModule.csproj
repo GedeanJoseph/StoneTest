@@ -14,10 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Driver\" />
     <Folder Include="Template\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Driver\chromedriver.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Template\FallBackVerboseFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -2,7 +2,7 @@
   "profiles": {
     "StoneTest.Crawler.App": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\temp"
+      "commandLineArgs": "C:\\temp 1 5"
     }
   }
 }

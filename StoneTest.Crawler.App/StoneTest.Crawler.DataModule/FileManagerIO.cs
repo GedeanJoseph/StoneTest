@@ -20,7 +20,7 @@ namespace StoneTest.Crawler.DataModule
         
         public string CurrentFileName { get { return GetCurrentFileName(); } }
 
-        public double CurrentFileSizeMB { get { return GetCurrentFileSize(); } }
+        public decimal CurrentFileSizeMB { get { return GetCurrentFileSize(); } }
 
         public FileManagerIO(string filePath, string fileName)
         {
@@ -33,9 +33,9 @@ namespace StoneTest.Crawler.DataModule
             return Path.Combine(FilePath, FileName);
         }
 
-        private double GetCurrentFileSize() {
+        private decimal GetCurrentFileSize() {
             FileInfo fileInfo = new FileInfo(Path.Combine(FilePath, FileName));
-            return fileInfo.Length > 0? (fileInfo.Length / 1024 / 1024):0;
+            return fileInfo.Length > 0? Math.Round(((decimal)fileInfo.Length / 1024 / 1024)):0;
         }    
 
         private void CreateFile()
@@ -64,7 +64,7 @@ namespace StoneTest.Crawler.DataModule
             return sb.ToString();
         }
 
-        public double WriteContent(TextContent content)
+        public decimal WriteContent(TextContent content)
         {
             if (!File.Exists(Path.Combine(FilePath, FileName)))        
             CreateFile();

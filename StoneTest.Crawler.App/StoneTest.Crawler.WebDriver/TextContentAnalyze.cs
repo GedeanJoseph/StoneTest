@@ -8,7 +8,7 @@ namespace StoneTest.Crawler.WebModule
 {
     public class TextContentAnalyze : WebProviderBase, ITextContentAnalyzer
     {
-        public TextContentAnalyze(string pathDriver) : base(pathDriver)
+        public TextContentAnalyze(bool headLessModeActivated) : base(headLessModeActivated)
         {
         }
 
@@ -29,13 +29,14 @@ namespace StoneTest.Crawler.WebModule
                 var byteCountValue = Regex.Match(byteCountResult, "[0-9]*").Value;//GET ONLY NUMERIC VALUES FROM STRING ^.^
 
                 textContent.ContentInfo.ContentByteSize = Convert.ToDouble(byteCountValue);
+                Fechar();
+                return textContent;
             }
             catch (Exception)
-            {               
+            {
+                Fechar();
                 return GetTextDetailsFallBack(textContent);                
             }
-            Fechar();
-            return textContent;
         }
 
         public TextContent GetTextDetailsFallBack(TextContent textContent)

@@ -18,7 +18,7 @@ namespace StoneTest.Crawler.App
         //private IConfiguration _configuration;
         private double _bufferLimitMB;
         private double _fileSizeLimitMB;
-        private double _executionCount;
+        private long _executionCount;
         private Stopwatch swTotal;
         private Stopwatch swStep;
         #endregion'
@@ -46,12 +46,12 @@ namespace StoneTest.Crawler.App
             swTotal.Start();
             var bufferLimitB = (_bufferLimitMB * 1024 * 1024);
 
-            while (_fileManager.CurrentFileSizeMB < _fileSizeLimitMB && _executionCount < 300)
+            while (_fileManager.CurrentFileSizeMB < (decimal)_fileSizeLimitMB)
             {
                 _executionCount++;
                 swStep.Start();
                 
-                Console.WriteLine($"\n=================   Executing Crawler iteration '{_executionCount}'  =================\n");
+                Console.WriteLine($"\n==========   Executing Crawler iteration '{_executionCount}' file size is \"{_fileManager.CurrentFileSizeMB}MB/{_fileSizeLimitMB}MB\" ==========\n");
 
                 var newTextContent = _textProvider.GetTextContent();
                 
@@ -64,13 +64,15 @@ namespace StoneTest.Crawler.App
                      * Poderia utilizar aqui uma recursão de laço while, onde checaria a cada interação a necessidade de nova recursão.
                      * Mas, optei por uma laço mais simpes onde o target será definido por um cálculo matemático executado uma única vez
                     // */
+
                     var qtdIterations = CheckInteractions(newTextContent, bufferLimitB);
                     for (int i = 1; i < qtdIterations; i++)
                     {
                         newTextContent.Content.Append(initialContent);
                     }
+                    Console.WriteLine($"\nWriting a buffer of {qtdIterations * newTextContent.ContentInfo.ContentByteSize} bytes and {newTextContent.Content.Length} characteres done with {qtdIterations} perfect concatenations");
                 }
-
+                
                 //write do buffer atual com o maior valor possível dentro do valor limite                
                 _fileManager.WriteContent(newTextContent);
                 swStep.Stop();
@@ -98,9 +100,9 @@ namespace StoneTest.Crawler.App
             Console.WriteLine("=======================================================================================");
         }
         private void ReportGenerator() {
-                Console.WriteLine("{0,35} {1,10} {2,19} {3,10} {4,16} {5,16}", "Name", "Size(MB)", "Path", "Iterations", "Total Time", "Average Time");
+                Console.WriteLine("{0,35} {1,10} {2,19} {3,10} {4,16} {5,16}", "Name", "Size(MB)", "File Path", "Iterations", "Total Time", "Average Time");
                 Console.WriteLine("_______________________________________________________________________________________________________________");                
-                Console.WriteLine("{0,35} {1,10} {2,19} {3,10} {4,16} {5,16}\n\n", _fileManager.FileName, _fileManager.CurrentFileSizeMB, _fileManager.FilePath,_executionCount, swTotal.Elapsed.ToString(@"hh\:mm\:ss"),swStep.Elapsed.ToString(@"hh\:mm\:ss"));                 
+                Console.WriteLine("{0,35} {1,10} {2,19} {3,10} {4,16} {5,16}\n\n", _fileManager.FileName, _fileManager.CurrentFileSizeMB, _fileManager.FilePath,_executionCount, swTotal.Elapsed.ToString(@"hh\:mm\:ss"),(new TimeSpan(swStep.Elapsed.Ticks / _executionCount)).ToString(@"hh\:mm\:ss"));                 
         }
 
         #endregion

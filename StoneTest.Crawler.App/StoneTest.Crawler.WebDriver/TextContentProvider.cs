@@ -14,9 +14,10 @@ namespace StoneTest.Crawler.WebModule
     {
         private List<string> _fallbackMsgs;
 
-        public TextContentProvider(string pathDriver):base(pathDriver)
+        public TextContentProvider(bool headLessModeActivated) :base(headLessModeActivated)
         {
             _fallbackMsgs = new List<string>();
+            LoadFallBackFile();
         }
 
         public TextContent GetTextContent()
@@ -32,24 +33,22 @@ namespace StoneTest.Crawler.WebModule
                     .FindElement(By.ClassName("frase")).Text;
 
                 textContent.Content.Append(content);
-               
+                Fechar();
+                return textContent;
             }
-            catch (Exception)            {
-                var rdn = new Random();
-                var idx = rdn.Next(0, _fallbackMsgs.Count());
-
-                textContent.Content.Append(_fallbackMsgs[idx]);
+            catch (Exception){
+               Fechar();
+                return GetTextFallBack();
             }
-            Fechar();
-            return textContent;
         }        
         public TextContent GetTextFallBack()
         {
-            var textMsg = new TextContent();
-            var text = GetValueFromElementByClass("sentence sentence-exited");
+            var textContent = new TextContent();
+            var rdn = new Random();
+            var idx = rdn.Next(0, _fallbackMsgs.Count());
 
-            Fechar();
-            return textMsg;            
+            textContent.Content.Append(_fallbackMsgs[idx]);
+            return textContent;            
         }
 
         private void LoadFallBackFile()
