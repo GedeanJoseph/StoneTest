@@ -70,7 +70,7 @@ namespace StoneTest.Crawler.App
                     {
                         newTextContent.Content.Append(initialContent);
                     }
-                    Console.WriteLine($"\nWriting a buffer of {qtdIterations * newTextContent.ContentInfo.ContentByteSize} bytes and {newTextContent.Content.Length} characteres done with {qtdIterations} perfect concatenations");
+                    Console.WriteLine($"\nWriting a buffer of {qtdIterations * newTextContent.ContentInfo.ContentByteSize} bytes and {newTextContent.Content.Length} characteres done with a {qtdIterations} perfect concatenations");
                 }
                 
                 //write do buffer atual com o maior valor possível dentro do valor limite                
