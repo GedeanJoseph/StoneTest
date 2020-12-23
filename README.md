@@ -15,7 +15,7 @@ Enjoy ^.^
 ## Prerequisites
 - Google Chome **v87^** *[Check your Version](https://www.google.com/chrome/update/)*
 - Dot Net Core **V3.1^**
-- [googledriver.exe **v87**](https://sites.google.com/a/chromium.org/chromedriver/downloads) *(Already available in the project in the driver folder of the webDriver project)*
+- [googledriver.exe **v87**](https://sites.google.com/a/chromium.org/chromedriver/downloads) *(Already available in the project inside the driver folder of the webDriver project)*
    - ### Nuget Packages
      - Selenium.WebDriver **v3.141.0**
      - Microsoft.Extensions.Configuration.Json **v5.0.0**
@@ -46,10 +46,12 @@ B. You can also run through the prompt and explore passing parameters via the co
 ```bash
 [..\bin\Release]\StoneTest.Crawler.App.exe "c:\temp2 10 50 0"
 ```
-### Resume of Execution 
+### Resume of execution Start
 #### List Parameters
      1. File Path = Destination directory where the file will be generated with all the buffer produced by the crawler
      2. Buffer size in Mega Bytes that should be taken into account when saving the file.
      3. Maximum size that the file must reach to complete the execution of the system.
      4. Parameter that will allow changing the default behavior of the system to run in headless mode. By default it will run in activated mode.
 
+## Project Status
+This project is under construction and probably in constant evolution. The initial proposal is met, however, the adopted architecture allows the exploration of many techniques and application of evolution. I will continue to have fun with him.
